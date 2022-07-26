@@ -4,7 +4,6 @@
 Karen Son: somanykarens
 
 ### Application Idea 
-provides a brief paragraph or two describing your application and the data it works with.
+Currently, I would like to implement a application for choosing a game. The data will include different games, game types, and necessary accessories or playing area/field. Additionally, I would like to try adding in user data that could be comments, ratings or likes.
 
 ### Functionality 
-provides a brief paragraph or two explaining the functionality provided by your application, how it is used, and how it interacts with the data it maintains.
