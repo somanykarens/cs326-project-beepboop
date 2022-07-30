@@ -1,5 +1,6 @@
 # Milestone #1: Idea
 Team: beepboop
+
 Application: GG-Ez
 
 ## Team Overview 
