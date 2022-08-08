@@ -1,1 +1,8 @@
-.DS_Store
+# Ignore Mac system files
+.DS_store
+
+# Ignore all text files
+*.txt
+
+# Bootstrap examples
+bootstrap-5.2.0-examples/
