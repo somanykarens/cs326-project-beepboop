@@ -4,5 +4,8 @@
 # Ignore all text files
 *.txt
 
+# Ignore liveserver file for VS Code
+.vscode/
+
 # Bootstrap examples
 bootstrap-5.2.0-examples/
