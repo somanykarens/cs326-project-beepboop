@@ -11,3 +11,5 @@
 - Number of players - single, two, multi
 - Audience - some indicator of expected audience (E, G, PG, etc.)
 - Play time - expected time needed to finish a game
+
+## Part 2: HTML and CSS
