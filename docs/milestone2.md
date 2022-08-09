@@ -13,3 +13,8 @@
 - Play time - expected time needed to finish a game
 
 ## Part 2: HTML and CSS
+Below are screenshots of my current user interface:
+![Screenshot of user interface rendered in the browser](ui1.png)
+![Screenshot of user interface rendered in the browser](ui2.png)
+![Screenshot of user interface rendered in the browser](ui3.png)
+![Screenshot of user interface rendered in the browser](ui4.png)
