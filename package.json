@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/somanykarens/cs326-project-beepboop/issues"
   },
-  "homepage": "https://github.com/somanykarens/cs326-project-beepboop#readme"
+  "homepage": "https://github.com/somanykarens/cs326-project-beepboop#readme",
+  "dependencies": {
+    "copyfiles": "^2.4.1",
+    "dotenv": "^16.0.1",
+    "pg": "^8.7.3"
+  }
 }
