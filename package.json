@@ -7,7 +7,10 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "copyfiles client/* server/* .env package*.json deploy",
+    "start": "node server/index.js",
+    "debug": "node --inspect-brk index.js"
   },
   "repository": {
     "type": "git",
