@@ -1,0 +1,22 @@
+{
+  "name": "cs326-project-beepboop",
+  "version": "1.0.0",
+  "description": "Project for CS 326 - Summer 2022",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/somanykarens/cs326-project-beepboop.git"
+  },
+  "author": "Karen Son",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/somanykarens/cs326-project-beepboop/issues"
+  },
+  "homepage": "https://github.com/somanykarens/cs326-project-beepboop#readme"
+}

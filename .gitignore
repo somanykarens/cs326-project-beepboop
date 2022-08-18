@@ -9,3 +9,7 @@
 
 # Bootstrap examples
 bootstrap-5.2.0-examples/
+
+# This will ignore the node_modules directory in your GitHub repository.
+# You should never commit and push the node_modules directory.
+node_modules
