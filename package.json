@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Project for CS 326 - Summer 2022",
   "type": "module",
-  "main": "index.js",
+  "engines": {
+    "node": "18.7.0"
+  },
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "copyfiles client/* server/* .env package*.json deploy",
     "start": "node server/index.js",
     "debug": "node --inspect-brk index.js"

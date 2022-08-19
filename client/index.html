@@ -1,16 +1,15 @@
 <!doctype html>
 <html lang="en">
-
+<!-- I used a Bootstrap template as a base and found other tutorials online to customize. Credit given where the code appears. -->
   <head>
     <title>GG E-z</title>
     <script type="module" src="main.js" defer></script>
+    <script defer src="theme.js"></script> <!-- Nav's light/dark mode theme -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="theme.js"></script> <!-- light/dark mode theme -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet"/> <!-- font style -->
-    <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content="Hugo 0.101.0">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet"/> <!-- font style -->
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/carousel/">
     <link href="/bootstrap-5.2.0-examples/assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -53,10 +52,11 @@
 
   <body>
   <header>
+    <!-- NAV BAR FROM A YOUTUBE TUTORIAL: https://www.youtube.com/watch?v=biOMz4puGt8 -->
     <nav class="navbar">
       <ul class="navbar-nav">
         <li class="logo">
-          <a href="#" class="nav-link">
+          <a href="#" class="nav-link"> <!-- return to top of page when clicked -->
             <span class="link-text logo-text">GG E-z</span>
             <svg
               aria-hidden="true"
@@ -84,9 +84,9 @@
           </a>
         </li>
 
-
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="#allGamesDiv" class="nav-link" id="all-games-nav-link"> <!-- Renders all games when clicked in #allGamesDiv using Javascript -->
+            <!-- This is the only way to show games list - I do not want another way to render all games -->
             <svg
               aria-hidden="true"
               focusable="false"
@@ -115,7 +115,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="#picker" class="nav-link"> <!-- Brings you to the game picker form when clicked -->
             <svg
               aria-hidden="true"
               focusable="false"
@@ -144,7 +144,36 @@
         </li>
 
         <li class="nav-item">
-          <a href="#about" class="nav-link" id="about-nav-link"> <!-- # can be replaced with a link... i.e. https://umass.moonami.com or id of element we want to go to-->
+          <a href="#gameform" class="nav-link" id="add-game-nav-link"> <!-- Brings you to the add game form when clicked (does not add any game) -->
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fad"
+              data-icon="cat"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              class="svg-inline--fa fa-cat fa-w-16 fa-9x"
+            >
+              <g class="fa-group">
+                <path
+                  fill="currentColor"
+                  d="M448 96h-64l-64-64v134.4a96 96 0 0 0 192 0V32zm-72 80a16 16 0 1 1 16-16 16 16 0 0 1-16 16zm80 0a16 16 0 1 1 16-16 16 16 0 0 1-16 16zm-165.41 16a204.07 204.07 0 0 0-34.59 2.89V272l-43.15-64.73a183.93 183.93 0 0 0-44.37 26.17L192 304l-60.94-30.47L128 272v-80a96.1 96.1 0 0 0-96-96 32 32 0 0 0 0 64 32 32 0 0 1 32 32v256a64.06 64.06 0 0 0 64 64h176a16 16 0 0 0 16-16v-16a32 32 0 0 0-32-32h-32l128-96v144a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16V289.86a126.78 126.78 0 0 1-32 4.54c-61.81 0-113.52-44.05-125.41-102.4z"
+                  class="fa-secondary"
+                ></path>
+                <path
+                  fill="currentColor"
+                  d="M376 144a16 16 0 1 0 16 16 16 16 0 0 0-16-16zm80 0a16 16 0 1 0 16 16 16 16 0 0 0-16-16zM131.06 273.53L192 304l-23.52-70.56a192.06 192.06 0 0 0-37.42 40.09zM256 272v-77.11a198.62 198.62 0 0 0-43.15 12.38z"
+                  class="fa-primary"
+                ></path>
+              </g>
+            </svg>
+            <span class="link-text">Add Game</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#about" class="nav-link" id="about-nav-link"> <!-- Renders a short blurb about the website from JSON using Javascript -->
             <svg
               aria-hidden="true"
               focusable="false"
@@ -272,7 +301,7 @@
             <div class="carousel-caption text-start">
               <h1>Game Picker</h1>
               <p>What are you trying to play today?</p>
-              <p><a class="btn btn-lg btn-primary" href="#">Let's find out</a></p>
+              <p><a class="btn btn-lg btn-primary" href="#picker">Let's find out</a></p> <!-- Brings you to the game picker form when clicked -->
             </div>
           </div>
         </div>
@@ -286,7 +315,7 @@
             <div class="carousel-caption">
               <h1>No idea what you want to play?</h1>
               <p>Let us pick for you.</p>
-              <p><a class="btn btn-lg btn-primary" href="#">Random game</a></p>
+              <p><a class="btn btn-lg btn-primary" href="#" id="random">Random game</a></p>
 
             </div>
           </div>
@@ -303,11 +332,44 @@
       </button>
     </div>
 
+    <!-- Divs that will be populated by JavaScript
+    ================================================== -->
+    <div id="myJS">
+      <div id="allGamesDiv"></div>
+      <div id="hamster"></div> <!-- hamster wheel (CSS animation) from https://codepen.io/aitchiss/pen/KKVOMLK -->
+      <div id="interactiveDiv"></div>
+    </div>
+
+    <div class="row featurette" id="picker">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1"> Game Picker: <span class="text-muted">based on filters</span></h2>
+        <div id="gamepicker">
+          <!-- categories are populated with Javascript -->
+          <p class="lead">
+            <select id="selectCategory-picker">
+              <option id="category-picker">First select a category</option>
+            </select>
+          </p>
+          <p class="lead"><label for="numPlayers">Maximum Number of Players: </label><input type="number" id="numPlayers" min="1" max="9" /></p>
+          <p class="lead"><label for="playTime">Maximum Playtime (minutes): </label><input type="number" id="playTime" min="5" max="3000" /></p>
+          <div class="center"><p><a class="btn btn-lg btn-primary" href="#" id="pickGame">Find a Game &raquo;</a></p></div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Brown Scrabble Boards With Letters</title>
+            <image href="/images/scrabble.jpg" width="100%" height="100%">
+            <!-- Photo by Pixabay: https://www.pexels.com/photo/alphabet-close-up-communication-conceptual-278887/ -->
+        </svg>
+
+      </div>
+     
+    </div>
+
+    <hr class="featurette-divider">
 
     <!-- Marketing messaging and featurettes
     ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
+    <!-- Wrap the rest of the page in another container to center all the content. -->  
     <div class="container marketing" id="info">
 
       <!-- Three columns of text below the carousel -->
@@ -377,7 +439,36 @@
 
       <hr class="featurette-divider">
 
-      <!-- /END THE FEATURETTES -->
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading fw-normal lh-1"> Add Games: <span class="text-muted">Our collection grows with your help.</span></h2>
+          <div id="gameform">
+            <!-- categories are populated with Javascript -->
+            <p class="lead">
+              <select id="selectCategory-adder">
+                <option id="category-adder">First select a category</option>
+              </select>
+            </p>
+            <p class="lead"><label for="name">Name of Game: </label><input type="text" id="name" /></p>
+            <p class="lead"><label for="numPlayers">Maximum Number of Players: </label><input type="number" id="numPlayers" min="1" max="9" /></p>
+            <p class="lead"><label for="playTime">Playtime (minutes): </label><input type="number" id="playTime" min="5" max="3000" /></p>
+            <div class="center"><p><a class="btn btn-lg btn-primary" href="#" id="frfr-add">Add Game &raquo;</a></p></div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Focus Photo of Super Mario, Luigi, and Yoshi Figurines</title>
+              <image href="/images/supermario.jpg" width="100%" height="100%">
+              <!-- Photo by Pixabay: https://www.pexels.com/photo/focus-photo-of-super-mario-luigi-and-yoshi-figurines-163036/ -->
+          </svg>
+
+        </div>
+       
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->  
+      
 
       <div id="about"></div>
 
