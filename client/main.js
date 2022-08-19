@@ -1,5 +1,5 @@
 // imports
-import { interactiveEntries, animation } from './interactive.js';
+import { interactive, animation } from './interactive.js';
 import { info , categories } from './info.js';
 await info.loadInfo();
 
@@ -29,7 +29,7 @@ const pickGameButton = document.getElementById('pickGame');
 
 allGamesNavElement.addEventListener('click', () => {
     animation.renderHamster(document.getElementById('hamster'));
-    interactiveEntries.renderAllGames(allGamesElement);
+    interactive.renderAllGames(allGamesElement);
 });
 
 randomButton.addEventListener('click', () => {
@@ -59,15 +59,32 @@ addGameButton.addEventListener('click', () => {
 });
 
 async function addTheGame() {
-    let g = await getElementValues();
-    await interactiveEntries.addGame(g.name, g.category, g.numPlayers, g.playTime);
-    await interactiveEntries.print(interactiveElement);
+    let g = await getElementValues('a');
+    interactive.addGame(g.name, g.category, g.numPlayers, g.playTime);
+    // have some way to show success to user
+    interactive.renderLastGame(document.getElementById('lastGameAdded'), g.name);
 }
 
-async function getElementValues() {
-    const name = document.getElementById('name').value;
-    const category = document.getElementById('category').value;
-    const numPlayers = parseInt(document.getElementById('numPlayers').value);
-    const playTime = parseInt(document.getElementById('playTime').value);
-    return { "name" : name, "category" : category, "numPlayers" : numPlayers, "playTime" : playTime };
+
+async function getElementValues(form) {
+    if (form === 'a') { // if form = 'a' then treat as add game form
+        const name = document.getElementById('name_a').value;
+        const category = selectCategoryElement_a.value;
+        const numPlayers = parseInt(document.getElementById('numPlayers_a').value);
+        const playTime = parseInt(document.getElementById('playTime_a').value);
+        return { "name" : name, "category" : category, "numPlayers" : numPlayers, "playTime" : playTime };
+    } else if (form === 'p') { // if form = 'p' then treat as pick game form
+        const category = selectCategoryElement_p.value;
+        const numPlayers = parseInt(document.getElementById('numPlayers_p').value);
+        const playTime = parseInt(document.getElementById('playTime_p').value);
+        return { "category" : category, "numPlayers" : numPlayers, "playTime" : playTime };
+    } else if (form === 'r') { // if form = 'r' then treat as rating form
+        // FIXME these elements do not exist in index.html yet ...
+        const name = document.getElementById('name_r').value;
+        const username = document.getElementById('username_r').value;
+        const rating = document.getElementById('rating_r').value; // make this number 1-5
+        return {"name" : name, "username" : username, "rating" : rating };
+    } else {
+        return false; // for testing
+    }
 }

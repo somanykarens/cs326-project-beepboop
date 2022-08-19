@@ -15,6 +15,15 @@ class InteractiveEntries {
         });
       }
 
+      renderLastGame(element, gamename) {
+        let last = this.data.games.length - 1;
+        let html = '<h2 class="fw-normal center">Whoops...Something went wrong...Nothing to see here...</h2>';
+        if (last >= 0 && this.data.games[last].name === gamename) {
+          html = '<h2 class="fw-normal animatedh2">Last game added: <span class="text-muted">' + this.data.games[last].name + '</span></h2>';
+        }
+        element.innerHTML = html;
+      }
+
       async addRating(name, username, rating) {
         this.data.ratings.push({ 
             "name" : name, 
@@ -70,16 +79,6 @@ class InteractiveEntries {
         html += '</table>';
         element.innerHTML = html;
       }
-
-      // FIXME - REMOVE LATER...USED FOR TESTING
-    async print(element) {
-        let html = '';
-        for (let g in this.data.games) {
-            html += g.name + '<br>';
-        }
-        element.innerHTML = html;
-    }
-
 }
 
 class FunStuff {
@@ -101,9 +100,11 @@ class FunStuff {
       </div>
       </div>
       `;
-  element.innerHTML = html;
+    element.innerHTML = html;
   }
+
+
 }
 
 export const animation = new FunStuff();
-export const interactiveEntries = new InteractiveEntries();
+export const interactive = new InteractiveEntries();

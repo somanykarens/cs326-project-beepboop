@@ -9,6 +9,10 @@
   /** hamster animation */
   --wheel-color: #01827F;
   --hamster-color: #F4B874;
+  /** type writer styling */
+  --bg-color: lightgray;
+  --typewriterSpeed: 2s;
+  --typewriterCharacters: 24;
 }
 
 /* GLOBAL STYLES
@@ -17,7 +21,7 @@
 
 body {
     color: black;
-    background: lightgray;
+    background: var(--bg-color);
     margin: 0;
   }
 
@@ -303,6 +307,75 @@ main {
   display: block;
 }
 /** END OF NAV */
+
+/*** TYPE WRITER EFFECT
+source: https://codepen.io/kevinpowell/pen/ExWZzmm ***/
+.animatedh2 {
+  text-align: center;
+  font-size: clamp(1rem, 3vw + 1rem, 4rem);
+  position: relative;
+  width: max-content;
+}
+
+.animatedh2::before, .animatedh2::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.animatedh2::before {
+  background: var(--bg-color);
+  animation: typewriter var(--typewriterSpeed)
+    steps(var(--typewriterCharacters)) 1s forwards;
+}
+
+.animatedh2::after {
+  width: 0.125em;
+  background: black;
+  animation: typewriter var(--typewriterSpeed)
+      steps(var(--typewriterCharacters)) 1s forwards,
+    blink 750ms steps(var(--typewriterCharacters)) infinite;
+}
+
+.subtitle {
+  letter-spacing: 0.15em;
+  color: hsl(0 0% 0% / 0.7);
+  font-size: 2rem;
+  font-weight: 400;
+  opacity: 0;
+  transform: translateY(3rem);
+  animation: fadeInUp 2s ease calc(var(--typewriterSpeed) + 2s) forwards;
+}
+
+@keyframes typewriter {
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes blink {
+  to {
+    background: transparent;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#yt-link {
+  position: absolute;
+  bottom: 2em;
+  width: 100%;
+  color: hsl(0 0% 0% / 0.7);
+}
+/** END OF TYPEWRITER ANIMATION */
 
 /** HAMSTER Wheel (CSS animation) from https://codepen.io/aitchiss/pen/KKVOMLK */
 .box-canvas{
