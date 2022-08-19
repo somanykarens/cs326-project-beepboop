@@ -52,19 +52,25 @@ class InteractiveEntries {
       async renderAllGames(element) {
         await this.getAllGames();
         let html = '<h2 class="featurette-heading fw-normal lh-1" id="gamepickertitle"> All Games in Database </h2>';
-        html += '<table class="allGamesTable">';
-        html += `
-          <tr>
-            <td class="tdheader">Name of Game</td>
-            <td class="tdheader">Category</td>
-            <td class="tdheader">Max Number of Players</td>
-            <td class="tdheader">Expected Play Time (minutes)</td>
-          </tr>
-        `;
-
         if (this.data.games.length === 0) {
-          html += 'There was a problem loading';
+          html += '<h2 class="fw-normal center">There was a problem loading or the database is empty!</h2>';
         } else {
+          // alphabetize games by name
+          this.data.games.sort((a, b) => {
+            let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+            if (nameA < nameB) { return -1; } //sort string ascending
+            if (nameA > nameB) { return 1; }
+            return 0; // no sorting
+          });
+          html += '<table class="allGamesTable">';
+          html += `
+            <tr>
+              <td class="tdheader">Name of Game</td>
+              <td class="tdheader">Category</td>
+              <td class="tdheader">Max Number of Players</td>
+              <td class="tdheader">Expected Play Time (minutes)</td>
+            </tr>
+          `;
           this.data.games.forEach((g) => {
             html += `
               <tr class="gamerow">
@@ -75,8 +81,9 @@ class InteractiveEntries {
               </tr>
             `;
             });
+            html += '</table>';
+            html += '<br><h2 class="fw-normal center">Not seeing a certain game? <a href="#gameform" class="plain">Add it!</a></h2>'
         }
-        html += '</table>';
         element.innerHTML = html;
       }
 }
@@ -99,6 +106,7 @@ class FunStuff {
         <div class="leg back"></div>
       </div>
       </div>
+      <hr class="featurette-divider">
       `;
     element.innerHTML = html;
   }

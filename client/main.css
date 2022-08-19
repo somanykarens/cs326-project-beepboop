@@ -177,11 +177,11 @@ main {
 }
 
 .fa-primary {
-  color: #ff7eee;
+  color: #0d6efd;
 }
 
 .fa-secondary {
-  color: #df49a6;
+  color: #6649b8;
 }
 
 .fa-primary,
@@ -658,5 +658,13 @@ select {
 }
 
 .gamerow:hover {
-  background-color: #01827F;
+  background-color: var(--wheel-color);
+}
+
+.plain {
+  color: var(--wheel-color);
+}
+
+.plain:hover {
+  color: #6649b8;
 }

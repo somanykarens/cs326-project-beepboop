@@ -13,3 +13,7 @@ bootstrap-5.2.0-examples/
 # This will ignore the node_modules directory in your GitHub repository.
 # You should never commit and push the node_modules directory.
 node_modules
+
+# Ignore this file in case I have to revert back to original game database
+# includes 75 games
+baseDB.json
