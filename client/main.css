@@ -668,3 +668,8 @@ select {
 .plain:hover {
   color: #6649b8;
 }
+
+.asterick {
+  font-style: italic;
+  color: #0d6efd; 
+}

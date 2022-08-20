@@ -12,7 +12,7 @@ await categories.render(selectCategoryElement_a);
 // UI Components
 //  - We grab the DOM elements we need to work with to make our code cleaner.
 const allGamesElement = document.getElementById('allGamesDiv');
-const interactiveElement = document.getElementById('interactiveDiv');
+const resultElement = document.getElementById('gamePickerResult');
 const aboutElement = document.getElementById('about');
 const dynamicElement = document.getElementById('dynamic-view-details');
 const dynamic1Link = document.getElementById('dynamic1');
@@ -21,7 +21,6 @@ const dynamic3Link = document.getElementById('dynamic3');
 
 // NAV ELEMENTS or OTHER BUTTONS
 const allGamesNavElement = document.getElementById('all-games-nav-link');
-const addGameNavElement = document.getElementById('add-game-nav-link');
 const aboutNavLink = document.getElementById('about-nav-link');
 const randomButton = document.getElementById('random');
 const addGameButton = document.getElementById('frfr-add');
@@ -33,8 +32,7 @@ allGamesNavElement.addEventListener('click', () => {
 });
 
 randomButton.addEventListener('click', () => {
-    //FIXME add function to select random game from DB
-    // should render game information to screen
+    interactive.renderRandom(allGamesElement);
 });
 
 aboutNavLink.addEventListener('click', () => {

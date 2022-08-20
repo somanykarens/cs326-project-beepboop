@@ -42,6 +42,10 @@ class Database {
 
   // READ 
   // ------------------------------------------------
+  async randomGG() {
+    const gamesOnly = await this.getAllGames();
+    return gamesOnly[Math.floor(Math.random() * gamesOnly.length)]; //game obj
+  }
 
   /**
    * Returns all games in Database

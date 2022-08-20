@@ -1,6 +1,7 @@
 class InteractiveEntries {
     constructor() {
         this.data = { games: [], ratings: [] };
+        this.result = {};
     }
 
     async addGame(name, category, numPlayers, playTime) {
@@ -49,6 +50,33 @@ class InteractiveEntries {
         }
       } 
 
+      async randomGG() {
+        const response = await fetch(`/randomGG`,
+        {
+          method: 'GET',
+        });
+    
+        if (response.ok) {
+          this.result = await response.json();
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      async renderRandom(element) {
+        await this.randomGG();
+        element.innerHTML = '';
+        let html = '<h2 class="fw-normal animatedh2">Our pick: <span class="text-muted">' + this.result.name + '</span></h2>'; 
+        html += '<p class="subtitle">This one is a great'; 
+        if (this.result.category !== "OTHER") { html += ' ' + this.result.category; }
+        html += ' game, sure to please.</p>';
+        if (this.result.playTime === "0") { html += '<p class="subtitle">Play as long as you want, this game is a ~forever game ~ </p><p class="subtitle">(breaks recommended)</p>'; }
+        else if (this.result.playTime === "3000") { html += '<p class="subtitle">Play until you beat it</p><p class="subtitle">and there will still be more to do...</p>'; }
+        else { html += '<p class="subtitle">Playtime is ' + this.result.playTime + ' minutes with up to ' + this.result.numPlayers +' players.</p>'; }
+        element.innerHTML = html;
+      }
+      
       async renderAllGames(element) {
         await this.getAllGames();
         let html = '<h2 class="featurette-heading fw-normal lh-1" id="gamepickertitle"> All Games in Database </h2>';
@@ -66,7 +94,7 @@ class InteractiveEntries {
           html += `
             <tr>
               <td class="tdheader">Name of Game</td>
-              <td class="tdheader">Category</td>
+              <td class="tdheader">Category</td>    
               <td class="tdheader">Max Number of Players</td>
               <td class="tdheader">Expected Play Time (minutes)</td>
             </tr>
@@ -76,12 +104,13 @@ class InteractiveEntries {
               <tr class="gamerow">
                 <td class="lead">${g.name}</td>
                 <td class="lead">${g.category}</td>
-                <td class="lead">${g.numPlayers}</td>
-                <td class="lead">${g.playTime}</td>
-              </tr>
-            `;
+                `;
+              if (g.numPlayers === "0") { html+= '<td class="lead">No limit</td>'; } else { html += `<td class="lead">${g.numPlayers}</td>`; }
+              if (g.playTime === "0") { html+= '<td class="lead">---</td>'; } else { html += `<td class="lead">${g.playTime}</td>`; }
+              html += `</tr>`;
             });
             html += '</table>';
+            html += '<p class="asterick">*** --- indicates you could probably play the game forever... but really should not. ***</p>';
             html += '<br><h2 class="fw-normal center">Not seeing a certain game? <a href="#gameform" class="plain">Add it!</a></h2>'
         }
         element.innerHTML = html;

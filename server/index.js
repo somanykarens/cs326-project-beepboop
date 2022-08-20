@@ -52,6 +52,16 @@ app.get('/allGames', async (req, res) => {
   }
 });
 
+// the /randomGG endpoint
+app.get('/randomGG', async (req, res) => {
+  try {
+    const g = await database.randomGG(); // returns game obj
+    res.send(JSON.stringify(g));
+    res.end();
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 
 
