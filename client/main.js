@@ -13,7 +13,7 @@ await categories.render(selectCategoryElement_a);
 //  - We grab the DOM elements we need to work with to make our code cleaner.
 const allGamesElement = document.getElementById('allGamesDiv');
 const resultElement = document.getElementById('gamePickerResult');
-const aboutElement = document.getElementById('about');
+const ratingAddedElement = document.getElementById('ratingAdded');
 const dynamicElement = document.getElementById('dynamic-view-details');
 const dynamic1Link = document.getElementById('dynamic1');
 const dynamic2Link = document.getElementById('dynamic2');
@@ -21,7 +21,7 @@ const dynamic3Link = document.getElementById('dynamic3');
 
 // NAV ELEMENTS or OTHER BUTTONS
 const allGamesNavElement = document.getElementById('all-games-nav-link');
-const aboutNavLink = document.getElementById('about-nav-link');
+const ratingNavLink = document.getElementById('rate-nav-link');
 const randomButton = document.getElementById('random');
 const addGameButton = document.getElementById('frfr-add');
 const pickGameButton = document.getElementById('pickGame');
@@ -35,8 +35,8 @@ randomButton.addEventListener('click', () => {
     interactive.renderRandom(allGamesElement);
 });
 
-aboutNavLink.addEventListener('click', () => {
-    aboutElement.innerText = info.getInfo().about;
+ratingNavLink.addEventListener('click', () => {
+   interactive.renderRatingForm();
 });
 
 dynamic1Link.addEventListener('click', () => {
@@ -63,6 +63,16 @@ async function addTheGame() {
     interactive.renderLastGame(document.getElementById('lastGameAdded'), g.name);
 }
 
+document.getElementById('buttonDiv').addEventListener('click', () => {
+    rateTheGame();
+});
+
+async function rateTheGame() {
+    let g = await getElementValues('r');
+    interactive.addRating(g.name, g.username, g.rating);
+    // have some way to show success to user
+    interactive.renderLastRating(ratingAddedElement, g.name);
+}
 
 async function getElementValues(form) {
     if (form === 'a') { // if form = 'a' then treat as add game form
@@ -77,7 +87,6 @@ async function getElementValues(form) {
         const playTime = parseInt(document.getElementById('playTime_p').value);
         return { "category" : category, "numPlayers" : numPlayers, "playTime" : playTime };
     } else if (form === 'r') { // if form = 'r' then treat as rating form
-        // FIXME these elements do not exist in index.html yet ...
         const name = document.getElementById('name_r').value;
         const username = document.getElementById('username_r').value;
         const rating = document.getElementById('rating_r').value; // make this number 1-5

@@ -36,6 +36,15 @@ class InteractiveEntries {
         });
       }
 
+      renderLastRating(element, gamename) {
+        let last = this.data.ratings.length - 1;
+        let html = '<h2 class="fw-normal center">Whoops...Something went wrong...Nothing to see here...</h2>';
+        if (last >= 0 && this.data.ratings[last].name === gamename) {
+          html = '<h2 class="fw-normal animatedh2 text-muted">Success!</h2>';
+        }
+        element.innerHTML = html;
+      }
+
       async getAllGames() {
         const response = await fetch(`/allGames`,
         {
@@ -65,8 +74,8 @@ class InteractiveEntries {
       }
 
       async renderRandom(element) {
+        document.getElementById('hamster').innerHTML = '';
         await this.randomGG();
-        element.innerHTML = '';
         let html = '<h2 class="fw-normal animatedh2">Our pick: <span class="text-muted">' + this.result.name + '</span></h2>'; 
         html += '<p class="subtitle">This one is a great'; 
         if (this.result.category !== "OTHER") { html += ' ' + this.result.category; }
@@ -114,6 +123,53 @@ class InteractiveEntries {
             html += '<br><h2 class="fw-normal center">Not seeing a certain game? <a href="#gameform" class="plain">Add it!</a></h2>'
         }
         element.innerHTML = html;
+      }
+
+      async renderRatingForm() { 
+        await this.getAllGames();
+
+        // grab necessary element id's
+        const h2 = document.getElementById('ratingheader');
+        const uElement = document.getElementById('ratingusername');
+        const gElement = document.getElementById('ratinggameselector');
+        const rElement = document.getElementById('ratingselector');
+        const bElement = document.getElementById('buttonDiv');
+        const iElement = document.getElementById('imgDiv');
+
+        // update h2
+        h2.innerHTML = '<h2 class="featurette-heading fw-normal lh-1"> Rate a game</h2>';
+
+        // update uElement
+        uElement.innerHTML = '<p class="lead"><label for="username_r">Your name: </label><input type="text" id="username_r" /></p>';
+        
+        //update gElement FIXME
+        gElement.innerHTML ='';
+        // create drop down for games list
+        const s = document.createElement("select");
+        s.setAttribute("id","name_r");
+        s.classList.add('lead');
+        const sdefault = document.createElement("option");
+        sdefault.textContent = 'Select a game to rate';
+        s.appendChild(sdefault);
+        for (let i = 0; i < this.data.games.length; ++i) {
+          const o = document.createElement("option");
+          o.textContent = this.data.games[i].name;
+          o.value = this.data.games[i].name;
+          s.appendChild(o);
+        }
+        gElement.appendChild(s);
+
+        // update rElement FIXME
+        rElement.innerHTML = "<br><p><select id='rating_r' class='lead'><option>How was it?</option><option value='5'>Best ever</option><option value='4'>One of the best</option><option value='3'>Good</option><option value='2'>Mid</option><option value='1'>Would not recommend</option></select></p><br>";
+
+        // update bElement
+        bElement.innerHTML = "<a class='btn btn-lg btn-primary' id='ratingSubmit'>Submit rating &raquo;</a>";
+        // bElement.addEventListener('click', () => {
+        //   alert('event click!');
+        // });
+
+        // update iElement 
+        iElement.innerHTML = "<svg class='bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto' width='500' height='500' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Placeholder: 500x500' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Photo of five yellow stars by Towfiqu barbhuiya on Pexels</title><image href='/images/stars-pexels-towfiqu-barbhuiya-9821386.jpg' width='100%' height='100%'></image></svg>";
       }
 }
 

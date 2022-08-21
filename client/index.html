@@ -173,7 +173,7 @@
         </li>
         
         <li class="nav-item">
-          <a href="#about" class="nav-link" id="about-nav-link"> <!-- Renders a short blurb about the website from JSON using Javascript -->
+          <a href="#ratingcontainer" class="nav-link" id="rate-nav-link"> <!-- Renders rating form using Javascript -->
             <svg
               aria-hidden="true"
               focusable="false"
@@ -197,7 +197,7 @@
                 ></path>
               </g>
             </svg>
-            <span class="link-text">About</span>
+            <span class="link-text">Rate Games</span>
           </a>
         </li>
 
@@ -344,8 +344,8 @@
         <h2 class="featurette-heading fw-normal lh-1"> Explore: <span class="text-muted">based on filters</span></h2>
         <div id="gamepicker">
           <!-- categories are populated with Javascript -->
-          <p class="lead">
-            <select id="selectCategory-picker">
+          <p>
+            <select id="selectCategory-picker" class="lead">
               <option id="category-picker">First select a category</option>
             </select>
           </p>
@@ -414,7 +414,7 @@
           <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
         </div>
         <div class="col-md-5">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Image of WarioWare game cover with Wario at center and other characters behind him</title>
               <image href="/images/wario1.png" width="100%" height="100%">
           </svg>
 
@@ -429,7 +429,7 @@
           <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
         </div>
         <div class="col-md-5 order-md-1">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+          <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Screenshot image of Dadish in game play from Nintendo</title>
               <image href="/images/dadish1.png" width="100%" height="100%"></image>
           </svg>
 
@@ -443,8 +443,8 @@
           <h2 class="featurette-heading fw-normal lh-1"> Add Games: <span class="text-muted">Our collection grows with your help.</span></h2>
           <div id="gameform">
             <!-- categories are populated with Javascript -->
-            <p class="lead">
-              <select id="selectCategory-adder">
+            <p>
+              <select id="selectCategory-adder" class="lead">
                 <option id="category-adder" value="false">First select a category</option>
               </select>
             </p>
@@ -471,12 +471,28 @@
       <!-- /END THE FEATURETTES -->  
       
 
-      <div id="about"></div>
+<!-- RATING FORM START -->
+<div id="ratingcontainer">
+  <div class="row featurette" id="ratingrow">
+      <div class="col-md-7 order-md-2" id="ratingtextarea">
+        <div id="ratingheader"></div> 
+        <div id="ratingform">
+          <div id="ratingusername"></div>
+          <div id="ratinggameselector"></div>
+          <div id="ratingselector"></div>
+          <div id="buttonDiv" class="center"></div>
+        </div> <!-- end #ratingform -->
+        <div id="ratingAdded"></div>
+      </div><!-- end #ratingtextarea -->
+      <div id="imgDiv" class="col-md-5 order-md-1"></div><!-- image div -->
+  </div> <!-- end #ratingrow -->
+</div> <!-- end of #ratingcontainer -->
+<!-- RATING FORM END -->
 
     </div><!-- /.container -->
 
 
-    <!-- FOOTER -->
+    <!-- FOOTER -->    
     <footer class="container">
       <p class="float-end"><a href="#" class="plain">Back to top</a></p>
       <p>CS 326 &middot; Web Programming &middot; Summer 2022</p>
