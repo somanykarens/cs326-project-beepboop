@@ -4,6 +4,7 @@ class InteractiveEntries {
         this.result = {};
     }
 
+    // FETCH
     async addGame(name, category, numPlayers, playTime) {
         this.data.games.push({ 
             "name" : name,
@@ -16,15 +17,6 @@ class InteractiveEntries {
         });
       }
 
-      renderLastGame(element, gamename) {
-        let last = this.data.games.length - 1;
-        let html = '<h2 class="fw-normal center">Whoops...Something went wrong...Nothing to see here...</h2>';
-        if (last >= 0 && this.data.games[last].name === gamename) {
-          html = '<h2 class="fw-normal animatedh2">Last game added: <span class="text-muted">' + this.data.games[last].name + '</span></h2>';
-        }
-        element.innerHTML = html;
-      }
-
       async addRating(name, username, rating) {
         this.data.ratings.push({ 
             "name" : name, 
@@ -34,15 +26,6 @@ class InteractiveEntries {
         {
           method: 'GET',
         });
-      }
-
-      renderLastRating(element, gamename) {
-        let last = this.data.ratings.length - 1;
-        let html = '<h2 class="fw-normal center">Whoops...Something went wrong...Nothing to see here...</h2>';
-        if (last >= 0 && this.data.ratings[last].name === gamename) {
-          html = '<h2 class="fw-normal animatedh2 text-muted">Success!</h2>';
-        }
-        element.innerHTML = html;
       }
 
       async getAllGames() {
@@ -73,6 +56,25 @@ class InteractiveEntries {
         }
       }
 
+      // RENDERINGS
+      renderLastGame(element, gamename) {
+        let last = this.data.games.length - 1;
+        let html = '<h2 class="fw-normal center">Whoops...Something went wrong...Nothing to see here...</h2>';
+        if (last >= 0 && this.data.games[last].name === gamename) {
+          html = '<h2 class="fw-normal animatedh2">Last game added: <span class="text-muted">' + this.data.games[last].name + '</span></h2>';
+        }
+        element.innerHTML = html;
+      }
+
+      renderLastRating(element, gamename) {
+        let last = this.data.ratings.length - 1;
+        let html = '<h2 class="fw-normal center">Whoops...Something went wrong...Nothing to see here...</h2>';
+        if (last >= 0 && this.data.ratings[last].name === gamename) {
+          html = '<h2 class="fw-normal animatedh2 text-muted">Success!</h2>';
+        }
+        element.innerHTML = html;
+      }
+
       async renderRandom(element) {
         document.getElementById('hamster').innerHTML = '';
         await this.randomGG();
@@ -92,7 +94,7 @@ class InteractiveEntries {
         if (this.data.games.length === 0) {
           html += '<h2 class="fw-normal center">There was a problem loading or the database is empty!</h2>';
         } else {
-          // alphabetize games by name
+          // alphabetize games by name BY DEFAULT
           this.data.games.sort((a, b) => {
             let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
             if (nameA < nameB) { return -1; } //sort string ascending
@@ -127,7 +129,6 @@ class InteractiveEntries {
 
       async renderRatingForm() { 
         await this.getAllGames();
-
         // grab necessary element id's
         const h2 = document.getElementById('ratingheader');
         const uElement = document.getElementById('ratingusername');
@@ -142,7 +143,7 @@ class InteractiveEntries {
         // update uElement
         uElement.innerHTML = '<p class="lead"><label for="username_r">Your name: </label><input type="text" id="username_r" /></p>';
         
-        //update gElement FIXME
+        //update gElement
         gElement.innerHTML ='';
         // create drop down for games list
         const s = document.createElement("select");
@@ -159,14 +160,11 @@ class InteractiveEntries {
         }
         gElement.appendChild(s);
 
-        // update rElement FIXME
+        // update rElement
         rElement.innerHTML = "<br><p><select id='rating_r' class='lead'><option>How was it?</option><option value='5'>Best ever</option><option value='4'>One of the best</option><option value='3'>Good</option><option value='2'>Mid</option><option value='1'>Would not recommend</option></select></p><br>";
 
         // update bElement
         bElement.innerHTML = "<a class='btn btn-lg btn-primary' id='ratingSubmit'>Submit rating &raquo;</a>";
-        // bElement.addEventListener('click', () => {
-        //   alert('event click!');
-        // });
 
         // update iElement 
         iElement.innerHTML = "<svg class='bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto' width='500' height='500' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Placeholder: 500x500' preserveAspectRatio='xMidYMid slice' focusable='false'><title>Photo of five yellow stars by Towfiqu barbhuiya on Pexels</title><image href='/images/stars-pexels-towfiqu-barbhuiya-9821386.jpg' width='100%' height='100%'></image></svg>";
