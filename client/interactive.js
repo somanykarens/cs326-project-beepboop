@@ -114,6 +114,47 @@ class InteractiveEntries {
         }
       }
 
+      // FILTER ON GAMES
+      async findGames(category, numPlayers, playTime) {
+        await this.getAllGames();
+        this.alphabetize();
+        const resultElement = document.getElementById('gamePickerResult');
+        let result = this.data.filter((x) => x.category === category).filter((x) => x.numPlayers <= numPlayers);
+
+        if (result.length === 0) {
+          resultElement.innerHTML = '<h2 class="fw-normal animatedh2">Based on your choices: <span class="text-muted">we found no matches.</span></h2>';
+        } else {
+          result = result.filter((x) => x.playTime <= playTime);
+          if (result.length === 0) {
+            resultElement.innerHTML = '<h2 class="fw-normal animatedh2">Based on your choices: <span class="text-muted">we found no matches.</span></h2>';
+          } else {
+            // render games
+            let html = '<h2 class="fw-normal animatedh2">Based on your choices:</h2>'; 
+          html += '<table class="allGamesTable">';
+          html += `
+            <tr>
+              <td class="tdheader">Name of Game</td>
+              <td class="tdheader">Category</td>    
+              <td class="tdheader">Max Number of Players</td>
+              <td class="tdheader">Expected Play Time (minutes)</td>
+            </tr>
+          `;
+          result.forEach((g) => {
+            html += `
+              <tr class="gamerow">
+                <td class="lead">${g.name}</td>
+                <td class="lead">${g.category}</td>
+                `;
+              if (g.numPlayers === "0") { html+= '<td class="lead">No limit</td>'; } else { html += `<td class="lead">${g.numPlayers}</td>`; }
+              if (g.playTime === "0") { html+= '<td class="lead">---</td>'; } else { html += `<td class="lead">${g.playTime}</td>`; }
+              html += `</tr>`;
+            });
+            html += '</table>';
+            resultElement.innerHTML = html;
+          }
+        }
+      }
+
       // RENDERINGS
       renderLastGame(element, gamename) {
         let last = this.data.length - 1;

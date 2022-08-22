@@ -12,7 +12,6 @@ await categories.render(selectCategoryElement_a);
 // UI Components
 //  - We grab the DOM elements we need to work with to make our code cleaner.
 const allGamesElement = document.getElementById('allGamesDiv');
-const resultElement = document.getElementById('gamePickerResult');
 const dynamicElement = document.getElementById('dynamic-view-details');
 const dynamic1Link = document.getElementById('dynamic1');
 const dynamic2Link = document.getElementById('dynamic2');
@@ -56,6 +55,13 @@ dynamic2Link.addEventListener('click', () => {
 
 dynamic3Link.addEventListener('click', () => {
     dynamicElement.innerText = info.getInfo().dynamic3;
+});
+
+pickGameButton.addEventListener('click', () => {
+    const category = selectCategoryElement_p.value;
+    const numPlayers = parseInt(document.getElementById('numPlayers_p').value);
+    const playTime = parseInt(document.getElementById('playTime_p').value);
+    interactive.findGames(category, numPlayers, playTime);
 });
 
 addGameButton.addEventListener('click', () => {
