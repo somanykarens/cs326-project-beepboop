@@ -2,6 +2,7 @@ class InteractiveEntries {
     constructor() {
         this.data = [];
         this.result = {};
+        this.random = {};
     }
 
     // FETCH
@@ -26,7 +27,7 @@ class InteractiveEntries {
         {
           method: 'GET',
         });
-        document.getElementById('ratingnew').innerHTML = '<h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Success!</span></h2>';
+//        document.getElementById('ratingnew').innerHTML = '<h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Success!</span></h2>';
       }
 
       async getAllGames() {
@@ -44,13 +45,13 @@ class InteractiveEntries {
       } 
 
       async randomGG() {
-        const response = await fetch(`/randomGG`,
+        const response = await fetch('/randomGG',
         {
           method: 'GET',
         });
     
         if (response.ok) {
-          this.result = await response.json();
+          this.random = await response.json();
           return true;
         } else {
           return false;
@@ -98,7 +99,7 @@ class InteractiveEntries {
         {
           method: 'GET',
         });
-        document.getElementById('ratingdelete').innerHTML = '<h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Deleted!</span></h2>';
+       // document.getElementById('ratingdelete').innerHTML = '<h2 class="featurette-heading fw-normal lh-1"><span class="text-muted">Deleted!</span></h2>';
         if (response.ok) {
           const onlyTheseRatings = this.result;
           const exists = onlyTheseRatings.hasOwnProperty(username);
@@ -168,13 +169,13 @@ class InteractiveEntries {
       async renderRandom(element) {
         document.getElementById('hamster').innerHTML = '';
         await this.randomGG();
-        let html = '<h2 class="fw-normal animatedh2">Our pick: <span class="text-muted">' + this.result.name + '</span></h2>'; 
+        let html = '<h2 class="fw-normal animatedh2">Our pick: <span class="text-muted">' + this.random[0].name + '</span></h2>'; 
         html += '<p class="subtitle">This one is a great'; 
-        if (this.result.category !== "OTHER") { html += ' ' + this.result.category; }
+        if (this.random[0].category !== "OTHER") { html += ' ' + this.random[0].category; }
         html += ' game, sure to please.</p>';
-        if (this.result.playTime === "0") { html += '<p class="subtitle">Play as long as you want, this game is a ~forever game ~ </p><p class="subtitle">(breaks recommended)</p>'; }
-        else if (this.result.playTime === "3000") { html += '<p class="subtitle">Play until you beat it</p><p class="subtitle">and there will still be more to do...</p>'; }
-        else { html += '<p class="subtitle">Playtime is ' + this.result.playTime + ' minutes with up to ' + this.result.numPlayers +' players.</p>'; }
+        if (this.random[0].playTime === "0") { html += '<p class="subtitle">Play as long as you want, this game is a ~forever game ~ </p><p class="subtitle">(breaks recommended)</p>'; }
+        else if (this.random[0].playTime === "3000") { html += '<p class="subtitle">Play until you beat it</p><p class="subtitle">and there will still be more to do...</p>'; }
+        else { html += '<p class="subtitle">Playtime is ' + this.random[0].playTime + ' minutes with up to ' + this.random[0].numPlayers +' players.</p>'; }
         element.innerHTML = html;
       }
       
@@ -257,7 +258,7 @@ class InteractiveEntries {
         deleteButton.innerHTML = '';
 
         // update h2
-        h2.innerHTML = '<h2 class="featurette-heading fw-normal lh-1"> Add new rating</h2>';
+        h2.innerHTML = '<h2 class="featurette-heading fw-normal lh-1"> Add new rating</h2><p class="asterick">*** Form will clear when done ***</p>';
 
         // update uElement
         uElement.innerHTML = '<p class="lead"><label for="username_r">Your name: </label><input type="text" id="username_r" /></p>';
@@ -305,7 +306,7 @@ class InteractiveEntries {
         deleteButton.innerHTML = '';
 
         // update h2
-        h2.innerHTML = '<h2 class="featurette-heading fw-normal lh-1">Update an existing rating</h2>';
+        h2.innerHTML = '<h2 class="featurette-heading fw-normal lh-1">Update an existing rating</h2><p class="asterick">*** Form will clear when done ***</p>';
 
         // update uElement
         uElement.innerHTML = '<p class="lead"><label for="username_r">Your name: </label><input type="text" id="username_r" /></p>';
@@ -355,7 +356,7 @@ class InteractiveEntries {
         deleteButton.innerHTML = '';
 
         // update h2
-        h2.innerHTML = '<h2 class="featurette-heading fw-normal lh-1">Delete an existing rating</h2>';
+        h2.innerHTML = '<h2 class="featurette-heading fw-normal lh-1">Delete an existing rating</h2><p class="asterick">*** Form will clear when done ***</p>';
 
         // update uElement
         uElement.innerHTML = '<p class="lead"><label for="username_r">Your name: </label><input type="text" id="username_r" /></p>';

@@ -59,17 +59,10 @@ class Database {
 
   /**
    * Returns a random game from Database
-   * @returns { 
-        "name" : name, 
-        "category" : category, 
-        "numPlayers" : numPlayers, 
-        "playTime" : playTime ,
-        "ratings" : rating
-   } returns game obj
    */
   async randomGG() {
     const data = await this._read();
-    return data[Math.floor(Math.random() * gamesOnly.length)]; //game obj
+    return [data[Math.floor(Math.random() * data.length)]]; //game obj
   }
 
   /**
