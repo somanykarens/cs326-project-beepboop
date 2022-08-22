@@ -13,7 +13,6 @@ await categories.render(selectCategoryElement_a);
 //  - We grab the DOM elements we need to work with to make our code cleaner.
 const allGamesElement = document.getElementById('allGamesDiv');
 const resultElement = document.getElementById('gamePickerResult');
-const ratingAddedElement = document.getElementById('ratingAdded');
 const dynamicElement = document.getElementById('dynamic-view-details');
 const dynamic1Link = document.getElementById('dynamic1');
 const dynamic2Link = document.getElementById('dynamic2');
@@ -25,7 +24,11 @@ const ratingNavLink = document.getElementById('rate-nav-link');
 const randomButton = document.getElementById('random');
 const addGameButton = document.getElementById('frfr-add');
 const pickGameButton = document.getElementById('pickGame');
+const newButton = document.getElementById('ratingnew');
+const updateButton = document.getElementById('ratingupdate');
+const deleteButton = document.getElementById('ratingdelete');
 
+// EVENTS
 allGamesNavElement.addEventListener('click', () => {
     animation.renderHamster(document.getElementById('hamster'));
     interactive.renderAllGames(allGamesElement);
@@ -36,7 +39,11 @@ randomButton.addEventListener('click', () => {
 });
 
 ratingNavLink.addEventListener('click', () => {
-   interactive.renderRatingForm();
+   interactive.renderRatingOptions();
+});
+
+document.getElementById('buttonDiv').addEventListener('click', () => {
+    interactive.renderRatingOptions();
 });
 
 dynamic1Link.addEventListener('click', () => {
@@ -51,11 +58,23 @@ dynamic3Link.addEventListener('click', () => {
     dynamicElement.innerText = info.getInfo().dynamic3;
 });
 
-
 addGameButton.addEventListener('click', () => {
     addTheGame();
 });
 
+newButton.addEventListener('click', () => {
+    rateTheGame('n');
+});
+
+updateButton.addEventListener('click', () => {
+    rateTheGame('u');
+});
+
+deleteButton.addEventListener('click', () => {
+    rateTheGame('d');
+});
+
+// FUNCTIONS
 async function addTheGame() {
     let g = await getElementValues('a');
     interactive.addGame(g.name, g.category, g.numPlayers, g.playTime);
@@ -63,15 +82,15 @@ async function addTheGame() {
     interactive.renderLastGame(document.getElementById('lastGameAdded'), g.name);
 }
 
-document.getElementById('buttonDiv').addEventListener('click', () => {
-    rateTheGame();
-});
-
-async function rateTheGame() {
+async function rateTheGame(type) {
     let g = await getElementValues('r');
-    interactive.addRating(g.name, g.username, g.rating);
-    // have some way to show success to user
-    interactive.renderLastRating(ratingAddedElement, g.name);
+    if (type === 'n') { //new rating
+        interactive.addRating(g.name, g.username, g.rating);
+    } else if (type === 'u') { // update rating
+        interactive.updateRating(g.name, g.username, g.rating);
+    } else if (type === 'd') { // delete rating
+        interactive.deleteRating(g.name, g.username);
+    }    
 }
 
 async function getElementValues(form) {

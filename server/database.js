@@ -17,11 +17,13 @@ class Database {
    */
    async addGame(name, category, numPlayers, playTime) {
     const data = await this._read();
-    data.games.push({ 
+    data.push({ 
         "name" : name, 
         "category" : category, 
         "numPlayers" : numPlayers, 
-        "playTime" : playTime });
+        "playTime" : playTime,
+        "ratings" : {}
+       });
     await this._write(data);
   }
   
@@ -33,57 +35,99 @@ class Database {
    */
   async addRating(name, username, rating) {
     const data = await this._read();
-    data.ratings.push({ "name" : name, "username" : username, "rating" : rating });
+    const gameindex = data.findIndex((x) => x.name === name);
+    data[gameindex].ratings[username] = rating;
     await this._write(data);
   }
 
-  // FIXME GAME PICKER: recommendation function here or on front-end only?
-  // not planning to store recommendations ... unless added to user ?
-
   // READ 
   // ------------------------------------------------
-  async randomGG() {
-    const gamesOnly = await this.getAllGames();
-    return gamesOnly[Math.floor(Math.random() * gamesOnly.length)]; //game obj
-  }
-
   /**
    * Returns all games in Database
    * @returns [{ 
         "name" : name, 
         "category" : category, 
         "numPlayers" : numPlayers, 
-        "playTime" : playTime }] returns games
+        "playTime" : playTime ,
+        "ratings" : ratings
+    }] returns all games
    */
   async getAllGames() {
     const data = await this._read();
-    const gamesOnly = data.games;
-    return gamesOnly;
+    return data;
+  }
+
+  /**
+   * Returns a random game from Database
+   * @returns { 
+        "name" : name, 
+        "category" : category, 
+        "numPlayers" : numPlayers, 
+        "playTime" : playTime ,
+        "ratings" : rating
+   } returns game obj
+   */
+  async randomGG() {
+    const data = await this._read();
+    return data[Math.floor(Math.random() * gamesOnly.length)]; //game obj
   }
 
   /**
    * Return available ratings for a game
    * @param {string} name of game
-   * @returns [{name: string, username: string, rating: number }] returns ratings
+   * @returns { username1: rating, username2: rating, ... } returns ratings
    */
    async getRatings(name) {
     const data = await this._read();
-    const result = data.ratings.filter((x) => x.name === name);
-    return result;
+    const gameindex = data.findIndex((x) => x.name === name);
+    const result = data[gameindex].ratings;
+    return result; // returns { username1: rating, username2: rating, ... } or empty {}
   }
 
   // UPDATE
   // ------------------------------------------------
-
   /**
-   * Updates existing ratings
-   * @returns 
+   * Update an existing rating to the backend database
+   * @param {string} name of game
+   * @param {string} username (reviewer)
+   * @param {number} rating
+   * @returns boolean, true if updated, false otherwise
    */
+   async updateRating(name, username, rating) {
+    const onlyTheseRatings = await this.getRatings(name);
+    // check if user has rating for this game
+    const exists = onlyTheseRatings.hasOwnProperty(username); // boolean
+    if(exists) {
+      await this.addRating(name, username, rating);
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 
   // DELETE 
   // ------------------------------------------------
-  // async deleteRatings(name, username)
+  /**
+   * Delete an existing rating from the backend database
+   * @param {string} name of game
+   * @param {string} username (reviewer)
+   * @returns boolean, true if deleted, false otherwise
+   */
+   async deleteRating(name, username) {
+    const data = await this._read();
+    const onlyTheseRatings = await this.getRatings(name);
+    // check if user has rating for this game
+    const exists = onlyTheseRatings.hasOwnProperty(username); // boolean
+    if(exists) {
+      const gameindex = data.findIndex((x) => x.name === name);
+      delete data[gameindex].ratings[username];
+      await this._write(data);
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 
   // PRIVATE 
@@ -94,7 +138,7 @@ class Database {
       const data = await readFile(this.path, 'utf8');
       return JSON.parse(data);
     } catch (error) {
-      return { games: [], ratings: [] };
+      return [];
     }
   }
 

@@ -63,8 +63,41 @@ app.get('/randomGG', async (req, res) => {
   }
 });
 
+// the /getRatingsFor endpoint
+app.get('/getRatingsFor', async (req, res) => {
+  try {
+    const { name } = req.query;
+    const g = await database.getRatings(name); // returns ratings obj
+    res.send(JSON.stringify(g));
+    res.end();
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
+// the /updateRating endpoint
+app.get('/updateRating', async (req, res) => {
+  try {
+    const { name, username, rating } = req.query;
+    const result = await database.updateRating(name, username, rating); //boolean
+    res.send(JSON.stringify(result));
+    res.end();
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
+// the /deleteRating endpoint
+app.get('/deleteRating', async (req, res) => {
+  try {
+    const { name, username } = req.query;
+    const result = await database.deleteRating(name, username); //boolean
+    res.send(JSON.stringify(result));
+    res.end();
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 // This matches all routes that are not defined.
 app.all('*', async (request, response) => {

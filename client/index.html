@@ -452,7 +452,7 @@
             <p class="lead"><label for="numPlayers">Maximum Number of Players: </label><input type="number" id="numPlayers_a" min="1" max="9" /></p>
             <p class="lead"><label for="playTime">Playtime (minutes): </label><input type="number" id="playTime_a" min="5" max="3000" /></p>
             <p class="asterick">*** Put 0 if there is no maximum number of players or playtime. ***</p>
-            <div class="center"><p><a class="btn btn-lg btn-primary" href="#lastGameAdded" id="frfr-add">Add Game &raquo;</a></p></div>
+            <div class="center"><p><a class="btn btn-lg btn-primary" id="frfr-add">Add Game &raquo;</a></p></div>
           </div>
           <div id="lastGameAdded"></div>
         </div>
@@ -478,11 +478,17 @@
         <div id="ratingheader"></div> 
         <div id="ratingform">
           <div id="ratingusername"></div>
+          <div id="ratingtype"></div>
           <div id="ratinggameselector"></div>
           <div id="ratingselector"></div>
+          
+          <div id="ratingnew" class="center"></div><br>
+          <div id="ratingupdate" class="center"></div><br>
+          <div id="ratingdelete" class="center"></div><br>
+
           <div id="buttonDiv" class="center"></div>
         </div> <!-- end #ratingform -->
-        <div id="ratingAdded"></div>
+        
       </div><!-- end #ratingtextarea -->
       <div id="imgDiv" class="col-md-5 order-md-1"></div><!-- image div -->
   </div> <!-- end #ratingrow -->
